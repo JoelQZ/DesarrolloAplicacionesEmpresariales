@@ -1,0 +1,13 @@
+{% extends "core/base.html" %}
+
+{% block title %}Agregar Pizza{% endblock %}
+
+{% block content %}
+    <h2>Agregar Nueva Pizza</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar Pizza</button>
+    </form>
+    <p><a href="{% url 'pizza_list' %}">Volver al Menú</a></p>
+{% endblock %}

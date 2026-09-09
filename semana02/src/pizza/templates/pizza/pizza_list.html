@@ -1,0 +1,28 @@
+{% extends "core/base.html" %}
+
+{% block title %}Menú de Pizzas{% endblock %}
+
+{% block content %}
+    <h2>Menú de Pizzas Artesanales</h2>
+    <p><a href="{% url 'pizza_create' %}">Agregar Pizza</a> | <a href="{% url 'order_list' %}">Ver Pedidos</a></p>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo de Masa</th>
+                <th>Ingredientes</th>
+                <th>Estado del Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pizza in pizzas %}
+                <tr>
+                    <td>{{ pizza.name }}</td>
+                    <td>{{ pizza.dough_type }}</td>
+                    <td>{{ pizza.ingredients }}</td>
+                    <td>{{ pizza.stock_status }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

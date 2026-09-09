@@ -1,0 +1,30 @@
+{% extends "core/base.html" %}
+
+{% block title %}Lista de Pedidos{% endblock %}
+
+{% block content %}
+    <h2>Pedidos de la Pizzería</h2>
+    <p><a href="{% url 'order_create' %}">Registrar Pedido</a> | <a href="{% url 'pizza_list' %}">Ver Menú</a></p>
+    <table>
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Teléfono</th>
+                <th>Pizza</th>
+                <th>Dirección</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.customer_name }}</td>
+                    <td>{{ order.phone }}</td>
+                    <td>{{ order.pizza_name }}</td>
+                    <td>{{ order.address }}</td>
+                    <td>{{ order.status }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
