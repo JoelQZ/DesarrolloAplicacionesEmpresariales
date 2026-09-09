@@ -1,0 +1,16 @@
+{% extends 'canchas/base.html' %}
+
+{% block content %}
+<h2>{% if cliente %}Editar cliente{% else %}Nuevo cliente{% endif %}</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label>Nombre:</label>
+    <input type="text" name="nombre" value="{{ cliente.nombre|default:'' }}" required>
+    <label>Teléfono:</label>
+    <input type="text" name="telefono" value="{{ cliente.telefono|default:'' }}" required>
+    <label>Email:</label>
+    <input type="email" name="email" value="{{ cliente.email|default:'' }}">
+    <button type="submit">Guardar</button>
+</form>
+<a href="{% url 'cliente_list' %}">Volver</a>
+{% endblock %}

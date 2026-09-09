@@ -1,0 +1,26 @@
+{% extends 'canchas/base.html' %}
+
+{% block content %}
+<h2>{% if reserva %}Editar{% else %}Nueva{% endif %} reserva</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label>Cliente:</label>
+    <select name="cliente">
+        {% for c in clientes %}
+        <option value="{{ c.id }}" {% if reserva.cliente_id == c.id %}selected{% endif %}>{{ c.nombre }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Horario:</label>
+    <select name="horario">
+        {% for h in horarios %}
+        <option value="{{ h.id }}" {% if reserva.horario_id == h.id %}selected{% endif %}>{{ h.cancha }} - {{ h.fecha }} {{ h.hora_inicio }}</option>
+        {% endfor %}
+    </select>
+
+    <label><input type="checkbox" name="pagado" {% if reserva.pagado %}checked{% endif %}> Pagado</label>
+
+    <button type="submit">Guardar</button>
+</form>
+<a href="{% url 'reserva_list' %}">Volver</a>
+{% endblock %}

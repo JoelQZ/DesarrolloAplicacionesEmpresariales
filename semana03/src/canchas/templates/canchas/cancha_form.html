@@ -1,0 +1,20 @@
+{% extends 'canchas/base.html' %}
+
+{% block content %}
+<h2>{% if cancha %}Editar cancha{% else %}Nueva cancha{% endif %}</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label>Nombre:</label>
+    <input type="text" name="nombre" value="{{ cancha.nombre|default:'' }}" required>
+    <label>Tipo:</label>
+    <select name="tipo">
+        <option value="futbol" {% if cancha.tipo == 'futbol' %}selected{% endif %}>Fulbito</option>
+        <option value="voley" {% if cancha.tipo == 'voley' %}selected{% endif %}>Vóley</option>
+        <option value="tenis" {% if cancha.tipo == 'tenis' %}selected{% endif %}>Tenis</option>
+    </select>
+    <label>Precio por hora:</label>
+    <input type="number" step="0.01" name="precio_hora" value="{{ cancha.precio_hora|default:'' }}" required>
+    <button type="submit">Guardar</button>
+</form>
+<a href="{% url 'cancha_list' %}">Volver</a>
+{% endblock %}

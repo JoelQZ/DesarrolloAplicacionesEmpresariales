@@ -1,0 +1,21 @@
+{% extends 'canchas/base.html' %}
+
+{% block content %}
+<h2>Clientes</h2>
+<a href="{% url 'cliente_create' %}">+ Nuevo cliente</a>
+
+<table border="1">
+    <tr><th>Nombre</th><th>Teléfono</th><th>Email</th><th>Acciones</th></tr>
+    {% for c in clientes %}
+    <tr>
+        <td>{{ c.nombre }}</td><td>{{ c.telefono }}</td><td>{{ c.email }}</td>
+        <td>
+            <a href="{% url 'cliente_update' c.id %}">Editar</a>
+            <a href="{% url 'cliente_delete' c.id %}">Eliminar</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">No hay clientes registrados.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

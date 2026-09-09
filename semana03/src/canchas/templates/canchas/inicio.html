@@ -1,0 +1,36 @@
+{% extends 'canchas/base.html' %}
+
+{% block title %}Inicio | Canchas{% endblock %}
+
+{% block content %}
+<h1>Guía para registrar una reserva</h1>
+<p>Sigue estos pasos en orden para crear una reserva completa en el sistema.</p>
+
+<ol class="steps">
+    <li class="step">
+        <h2>Paso 1: Registrar un Cliente</h2>
+        <p>Crea el cliente que realizará la reserva, si todavía no existe.</p>
+        <a class="action" href="{% url 'cliente_create' %}">Registrar cliente</a>
+    </li>
+    <li class="step">
+        <h2>Paso 2: Registrar una Sede</h2>
+        <p>Registra la sede como información del lugar. Este paso es opcional.</p>
+        <a class="action" href="{% url 'sede_create' %}">Registrar sede</a>
+    </li>
+    <li class="step">
+        <h2>Paso 3: Registrar una Cancha</h2>
+        <p>Crea la cancha que estará disponible para recibir horarios.</p>
+        <a class="action" href="{% url 'cancha_create' %}">Registrar cancha</a>
+    </li>
+    <li class="step">
+        <h2>Paso 4: Registrar un Horario</h2>
+        <p>Asocia un horario a la cancha y déjalo marcado como disponible.</p>
+        <a class="action" href="{% url 'horario_create' %}">Registrar horario</a>
+    </li>
+    <li class="step">
+        <h2>Paso 5: Crear la Reserva</h2>
+        <p>Selecciona el cliente y el horario disponible que ya registraste.</p>
+        <a class="action" href="{% url 'reserva_create' %}">Crear reserva</a>
+    </li>
+</ol>
+{% endblock %}

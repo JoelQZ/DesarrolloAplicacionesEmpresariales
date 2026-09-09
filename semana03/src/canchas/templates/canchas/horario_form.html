@@ -1,0 +1,23 @@
+{% extends 'canchas/base.html' %}
+
+{% block content %}
+<h2>{% if horario %}Editar horario{% else %}Nuevo horario{% endif %}</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label>Cancha:</label>
+    <select name="cancha">
+        {% for c in canchas %}
+        <option value="{{ c.id }}" {% if horario.cancha_id == c.id %}selected{% endif %}>{{ c.nombre }} ({{ c.get_tipo_display }})</option>
+        {% endfor %}
+    </select>
+    <label>Fecha:</label>
+    <input type="date" name="fecha" value="{{ horario.fecha|date:'Y-m-d' }}" required>
+    <label>Hora inicio:</label>
+    <input type="time" name="hora_inicio" value="{{ horario.hora_inicio|time:'H:i' }}" required>
+    <label>Hora fin:</label>
+    <input type="time" name="hora_fin" value="{{ horario.hora_fin|time:'H:i' }}" required>
+    <label><input type="checkbox" name="disponible" {% if horario.disponible or not horario %}checked{% endif %}> Disponible</label>
+    <button type="submit">Guardar</button>
+</form>
+<a href="{% url 'horario_list' %}">Volver</a>
+{% endblock %}

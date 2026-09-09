@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Agregar Nueva Pizza{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+        <h1 class="page-title">
+            <i class="fas fa-plus-circle"></i> Agregar Nueva Pizza
+        </h1>
+
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-pizza-slice"></i> Formulario de Nueva Pizza</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    <!-- Nombre -->
+                    <div class="mb-3">
+                        <label for="{{ form.nombre.id_for_label }}" class="form-label">
+                            {{ form.nombre.label }}
+                        </label>
+                        {{ form.nombre }}
+                        {% if form.nombre.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.nombre.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Tipo de Masa -->
+                    <div class="mb-3">
+                        <label for="{{ form.tipo_masa.id_for_label }}" class="form-label">
+                            {{ form.tipo_masa.label }}
+                        </label>
+                        {{ form.tipo_masa }}
+                        {% if form.tipo_masa.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.tipo_masa.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Ingredientes -->
+                    <div class="mb-3">
+                        <label for="{{ form.ingredientes.id_for_label }}" class="form-label">
+                            {{ form.ingredientes.label }}
+                        </label>
+                        {{ form.ingredientes }}
+                        {% if form.ingredientes.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.ingredientes.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Disponible -->
+                    <div class="mb-3 form-check">
+                        {{ form.disponible }}
+                        <label for="{{ form.disponible.id_for_label }}" class="form-check-label ms-2">
+                            {{ form.disponible.label }}
+                        </label>
+                        {% if form.disponible.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ form.disponible.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Error no-field -->
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger mb-3">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+
+                    <!-- Buttons -->
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Guardar Pizza
+                        </button>
+                        <a href="{% url 'pizza_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Volver al Menú
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

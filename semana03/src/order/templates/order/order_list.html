@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}Gestión de Pedidos{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="page-title">
+            <i class="fas fa-shopping-cart"></i> Gestión de Pedidos
+        </h1>
+    </div>
+</div>
+
+<!-- Action Buttons -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="action-links">
+            <a href="{% url 'order_create' %}" class="btn btn-primary">
+                <i class="fas fa-plus-circle"></i> Registrar Nuevo Pedido
+            </a>
+            <a href="{% url 'pizza_list' %}" class="btn btn-success">
+                <i class="fas fa-pizza-slice"></i> Ver Menú
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Orders Table -->
+<div class="row">
+    <div class="col-12">
+        {% if orders %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-id-card"></i> ID Pedido</th>
+                        <th><i class="fas fa-user"></i> Cliente</th>
+                        <th><i class="fas fa-phone"></i> Teléfono</th>
+                        <th><i class="fas fa-pizza-slice"></i> Pizza</th>
+                        <th><i class="fas fa-box"></i> Cantidad</th>
+                        <th><i class="fas fa-calendar"></i> Fecha</th>
+                        <th><i class="fas fa-check-circle"></i> Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>
+                            <strong>#{{ order.id }}</strong>
+                        </td>
+                        <td>{{ order.cliente.nombre }}</td>
+                        <td>{{ order.cliente.telefono }}</td>
+                        <td>{{ order.pizza.nombre }}</td>
+                        <td>
+                            <span class="badge bg-info">{{ order.cantidad }}</span>
+                        </td>
+                        <td>
+                            <small>{{ order.fecha_pedido|date:"d/m/Y H:i" }}</small>
+                        </td>
+                        <td>
+                            {% if order.estado == 'Pendiente' %}
+                            <span class="badge badge-pendiente">
+                                <i class="fas fa-hourglass-start"></i> {{ order.estado }}
+                            </span>
+                            {% elif order.estado == 'En preparación' %}
+                            <span class="badge badge-preparacion">
+                                <i class="fas fa-fire"></i> {{ order.estado }}
+                            </span>
+                            {% elif order.estado == 'Entregado' %}
+                            <span class="badge badge-entregado">
+                                <i class="fas fa-check"></i> {{ order.estado }}
+                            </span>
+                            {% elif order.estado == 'Cancelado' %}
+                            <span class="badge badge-cancelado">
+                                <i class="fas fa-times"></i> {{ order.estado }}
+                            </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <i class="fas fa-info-circle"></i>
+            <strong>No hay pedidos registrados.</strong> Haz clic en "Registrar Nuevo Pedido" para crear uno.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Pedidos Summary Cards -->
+{% if orders %}
+<div class="row mt-5">
+    <div class="col-lg-3 col-md-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-hourglass-start"></i> Pendientes</h5>
+                <p class="card-text display-5">
+                    <span class="badge badge-pendiente">
+                        {{ orders|dictsort:"estado"|length }}
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-fire"></i> En Prep.</h5>
+                <p class="card-text display-5">
+                    <span class="badge badge-preparacion">0</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-check"></i> Entregados</h5>
+                <p class="card-text display-5">
+                    <span class="badge badge-entregado">0</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-times"></i> Cancelados</h5>
+                <p class="card-text display-5">
+                    <span class="badge badge-cancelado">0</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
