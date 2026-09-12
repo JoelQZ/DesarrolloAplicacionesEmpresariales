@@ -1,0 +1,22 @@
+{% extends 'canchas/base.html' %}
+
+{% block content %}
+<h2>Reservas</h2>
+<a href="{% url 'reserva_create' %}">+ Nueva reserva</a>
+<table border="1">
+    <tr><th>Cliente</th><th>Horario</th><th>Pagado</th><th>Acciones</th></tr>
+    {% for r in reservas %}
+    <tr>
+        <td>{{ r.cliente.nombre }}</td>
+        <td>{{ r.horario }}</td>
+        <td>{{ r.pagado }}</td>
+        <td>
+            <a href="{% url 'reserva_update' r.id %}">Editar</a>
+            <a href="{% url 'reserva_delete' r.id %}">Eliminar</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">No hay reservas registradas.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

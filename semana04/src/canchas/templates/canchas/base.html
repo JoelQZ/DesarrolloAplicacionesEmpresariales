@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Canchas{% endblock %}</title>
+    <style>
+        :root {
+            --verde: #16a34a;
+            --verde-oscuro: #166534;
+            --azul: #2563eb;
+            --rojo: #dc2626;
+            --negro: #101418;
+            --gris: #f4f7f5;
+            --blanco: #ffffff;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: var(--gris);
+            color: var(--negro);
+            font-family: Arial, sans-serif;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 10;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 24px;
+            background: var(--negro);
+            border-bottom: 4px solid var(--verde);
+        }
+        nav .brand {
+            margin-right: 12px;
+            color: var(--blanco);
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        nav a {
+            padding: 8px 12px;
+            color: var(--blanco);
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        nav a:hover, nav a.active { background: var(--azul); }
+        main {
+            width: min(1100px, calc(100% - 32px));
+            margin: 96px auto 40px;
+        }
+        h1, h2 { color: var(--verde-oscuro); }
+        h1 { margin-top: 0; }
+        a { color: var(--azul); }
+        table {
+            width: 100%;
+            margin-top: 18px;
+            background: var(--blanco);
+            border-collapse: collapse;
+        }
+        th, td { padding: 10px; text-align: left; }
+        th { background: var(--negro); color: var(--blanco); }
+        tr:nth-child(even) { background: #e8f5ec; }
+        form {
+            display: grid;
+            gap: 10px;
+            max-width: 520px;
+            padding: 20px;
+            background: var(--blanco);
+            border-left: 5px solid var(--azul);
+        }
+        input, select, button { padding: 9px; font: inherit; }
+        button {
+            width: fit-content;
+            color: var(--blanco);
+            background: var(--verde);
+            border: 0;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover { background: var(--verde-oscuro); }
+        .danger { background: var(--rojo); }
+        .danger:hover { background: #991b1b; }
+        .steps {
+            display: grid;
+            gap: 14px;
+            padding-left: 24px;
+        }
+        .step {
+            padding: 18px 20px;
+            background: var(--blanco);
+            border-left: 5px solid var(--verde);
+        }
+        .step:nth-child(even) { border-left-color: var(--azul); }
+        .step h2 { margin: 0 0 8px; }
+        .step p { margin: 0 0 12px; }
+        .action {
+            display: inline-block;
+            padding: 8px 12px;
+            color: var(--blanco);
+            background: var(--azul);
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .action:hover { background: var(--verde-oscuro); }
+        @media (max-width: 650px) {
+            nav { padding: 10px 12px; }
+            nav .brand { width: 100%; margin-right: 0; }
+            nav a { padding: 6px 8px; font-size: 0.9rem; }
+            main { margin-top: 145px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a class="brand" href="{% url 'inicio' %}">Canchas</a>
+        <a href="{% url 'inicio' %}">Inicio</a>
+        <a href="{% url 'cliente_list' %}">Clientes</a>
+        <a href="{% url 'sede_list' %}">Sedes</a>
+        <a href="{% url 'cancha_list' %}">Canchas</a>
+        <a href="{% url 'horario_list' %}">Horarios</a>
+        <a href="{% url 'reserva_list' %}">Reservas</a>
+    </nav>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

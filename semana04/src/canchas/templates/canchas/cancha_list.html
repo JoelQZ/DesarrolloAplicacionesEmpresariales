@@ -1,0 +1,21 @@
+{% extends 'canchas/base.html' %}
+
+{% block content %}
+<h2>Canchas</h2>
+<a href="{% url 'cancha_create' %}">+ Nueva cancha</a>
+
+<table border="1">
+    <tr><th>Nombre</th><th>Tipo</th><th>Precio/hora</th><th>Acciones</th></tr>
+    {% for c in canchas %}
+    <tr>
+        <td>{{ c.nombre }}</td><td>{{ c.get_tipo_display }}</td><td>{{ c.precio_hora }}</td>
+        <td>
+            <a href="{% url 'cancha_update' c.id %}">Editar</a>
+            <a href="{% url 'cancha_delete' c.id %}">Eliminar</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">No hay canchas registradas.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

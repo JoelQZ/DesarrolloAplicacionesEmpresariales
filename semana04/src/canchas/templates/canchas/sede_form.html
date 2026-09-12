@@ -1,0 +1,14 @@
+{% extends 'canchas/base.html' %}
+
+{% block content %}
+<h2>{% if sede %}Editar sede{% else %}Nueva sede{% endif %}</h2>
+<form method="POST">
+    {% csrf_token %}
+    <label>Nombre:</label>
+    <input type="text" name="nombre" value="{{ sede.nombre|default:'' }}" required>
+    <label>Dirección:</label>
+    <input type="text" name="direccion" value="{{ sede.direccion|default:'' }}" required>
+    <button type="submit">Guardar</button>
+</form>
+<a href="{% url 'sede_list' %}">Volver</a>
+{% endblock %}

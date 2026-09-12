@@ -1,0 +1,12 @@
+{% extends 'canchas/base.html' %}
+
+{% block content %}
+<h2>Confirmar eliminación</h2>
+<p>¿Deseas eliminar este {{ entity }}?</p>
+<p>{{ object }}</p>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+    <a href="{% url cancel_url %}">Cancelar</a>
+</form>
+{% endblock %}

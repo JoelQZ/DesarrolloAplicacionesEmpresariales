@@ -1,0 +1,22 @@
+{% extends 'canchas/base.html' %}
+
+{% block content %}
+<h2>Horarios</h2>
+<a href="{% url 'horario_create' %}">+ Nuevo horario</a>
+
+<table border="1">
+    <tr><th>Cancha</th><th>Fecha</th><th>Inicio</th><th>Fin</th><th>Disponible</th><th>Acciones</th></tr>
+    {% for h in horarios %}
+    <tr>
+        <td>{{ h.cancha }}</td><td>{{ h.fecha }}</td><td>{{ h.hora_inicio }}</td><td>{{ h.hora_fin }}</td>
+        <td>{{ h.disponible }}</td>
+        <td>
+            <a href="{% url 'horario_update' h.id %}">Editar</a>
+            <a href="{% url 'horario_delete' h.id %}">Eliminar</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6">No hay horarios registrados.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

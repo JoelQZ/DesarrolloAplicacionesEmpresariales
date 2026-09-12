@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% block title %}Nuevo Pedido{% endblock %}
+{% block content %}
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-danger text-white">
+        <h4 class="mb-0"><i class="fas fa-shopping-cart"></i> Nuevo Pedido</h4>
+    </div>
+    <div class="card-body">
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label for="tipo_pedido" class="form-label">Tipo de Pedido</label>
+                    <select id="tipo_pedido" name="tipo_pedido" class="form-select">
+                        <option value="presencial">Presencial</option>
+                        <option value="delivery">Delivery</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label for="nombre_cliente" class="form-label">Nombre del Cliente</label>
+                    <input type="text" id="nombre_cliente" name="nombre_cliente" class="form-control" placeholder="Ej: Juan Pérez" required>
+                </div>
+                <div class="col-md-6 field-delivery d-none">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="text" id="telefono" name="telefono" class="form-control" placeholder="Ej: 987654321">
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4 field-delivery d-none">
+                <div class="col-md-12">
+                    <label for="direccion_entrega" class="form-label">Dirección de Entrega</label>
+                    <textarea id="direccion_entrega" name="direccion_entrega" class="form-control" rows="3" placeholder="Dirección exacta"></textarea>
+                </div>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label for="metodo_pago" class="form-label">Método de Pago</label>
+                    <select id="metodo_pago" name="metodo_pago" class="form-select" required>
+                        <option value="">Seleccione un método</option>
+                        {% for metodo in metodos_pago %}
+                            <option value="{{ metodo.id }}">{{ metodo.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6 field-delivery d-none">
+                    <label for="repartidor" class="form-label">Repartidor</label>
+                    <select id="repartidor" name="repartidor" class="form-select">
+                        <option value="">Seleccione un repartidor</option>
+                        {% for repartidor in repartidores %}
+                            <option value="{{ repartidor.id }}">{{ repartidor.nombre }} - {{ repartidor.vehiculo }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h5 class="mb-3 text-dark"><i class="fas fa-pizza-slice"></i> Selección de Pizzas</h5>
+                <div class="row g-3">
+                    {% for pizza in pizzas %}
+                    <div class="col-md-6">
+                        <div class="border rounded p-3 h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="pizza" value="{{ pizza.id }}" id="pizza_{{ pizza.id }}">
+                                    <label class="form-check-label" for="pizza_{{ pizza.id }}">
+                                        <strong>{{ pizza.nombre }}</strong>
+                                    </label>
+                                </div>
+                                <span class="badge bg-danger">$ {{ pizza.precio_base }}</span>
+                            </div>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text">Cantidad</span>
+                                <input type="number" class="form-control" name="cantidad_{{ pizza.id }}" value="1" min="1" max="20">
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-warning mb-0">No hay pizzas disponibles.</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-danger"><i class="fas fa-save"></i> Guardar Pedido</button>
+                <a href="{% url 'order_list' %}" class="btn btn-outline-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const tipoPedido = document.getElementById('tipo_pedido');
+    const deliveryFields = document.querySelectorAll('.field-delivery');
+
+    function togglePedidoFields() {
+        const isDelivery = tipoPedido.value === 'delivery';
+        deliveryFields.forEach(field => {
+            field.classList.toggle('d-none', !isDelivery);
+        });
+
+        const telefono = document.getElementById('telefono');
+        const direccion = document.getElementById('direccion_entrega');
+        const repartidor = document.getElementById('repartidor');
+
+        if (isDelivery) {
+            telefono.required = true;
+            direccion.required = true;
+            repartidor.required = true;
+        } else {
+            telefono.required = false;
+            direccion.required = false;
+            repartidor.required = false;
+        }
+    }
+
+    tipoPedido.addEventListener('change', togglePedidoFields);
+    togglePedidoFields();
+</script>
+{% endblock %}
