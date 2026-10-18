@@ -157,4 +157,48 @@ Se añadieron capacidades avanzadas de búsqueda y filtrado dinámico sobre los 
 Se evaluó el rendimiento de la API midiendo la cantidad de consultas enviadas a la base de datos mediante `len(connection.queries)` en la terminal interactiva:
 * **Optimización con `select_related`:** Aplicado sobre relaciones de tipo clave foránea y $1:1$ (como `datos_entrega` en `ClienteReadOnlyViewSet`), logrando reducir múltiples ejecuciones de queries a una sola consulta optimizada mediante `JOIN` en SQL.
 
+# Pizzería Gran Sabor — Semana 09: Front-end con React y Vite
+
+En esta fase del proyecto se diseñó e implementó la Single Page Application (SPA) utilizando **React** y **Vite**, migrando la interfaz desde los Templates de Django hacia una arquitectura cliente-servidor renderizada en el navegador, aplicando componentes funcionales, expresiones JSX, iteración de listas con claves únicas, renderizado condicional avanzado y estructuración modular con estilos personalizables.
+
+### 1. Entorno de Desarrollo y Estructura del Proyecto
+Se configuró el entorno de ejecución basado en Node.js y npm, utilizando Vite para el andamiaje inicial del cliente React dentro del directorio `frontend/`:
+* **Punto de Entrada SPA (`index.html` y `main.jsx`):** Definición del documento HTML único y montaje del componente raíz `App` en el DOM mediante `createRoot`.
+* **Organización del Código (`src/`):** Centralización de la lógica del cliente en `App.jsx`, maquetado modular de vistas y aislamiento de reglas de estilos globales y de componentes en `App.css`.
+* **Gestión de Dependencias y Scripts (`package.json`):** Definición de librerías base de React, scripts de desarrollo (`npm run dev`), análisis sintáctico (`npm run lint`) y compilación para producción (`npm run build`). Exclusión estricta de las carpetas `node_modules/` y `dist/` a través de `.gitignore`.
+
+### 2. Lógica de Interfaz y Expresiones JSX
+Se reemplazó la sintaxis tradicional de plantillas HTML por componentes JSX, permitiendo incrustar lógica de JavaScript directamente en el renderizado mediante llaves `{}`:
+* **Inyección de Expresiones e Impuestos:** Definición del precio base familiar y cálculo dinámico en tiempo de ejecución del valor con IGV (18%) aplicando formateo numérico con `.toFixed(2)`.
+* **Mapeo de Entidades (`.map()`):** Construcción de vistas iterativas para el catálogo de pizzas utilizando el método `.map()`, garantizando el rastreo del DOM mediante la asignación explícita de claves únicas (`key={pizza.id}`).
+
+### 3. Renderizado Condicional y Relaciones Anidadas
+Se incorporaron mecanismos dinámicos para modificar la presentación visual según el estado de los datos:
+* **Operadores Ternarios y Evaluación Lógica `&&`:** Implementación de ternarios para alternar clases CSS y mensajes de disponibilidad (`Disponible` vs `Agotado`), combinados con evaluaciones lógicas `&&` para resaltar alertas de agotamiento temporal (`!pizza.disponible && ...`) y validaciones de arreglos vacíos (`pizzas.length === 0`).
+* **Listas Anidadas en Relaciones $1:N$:** Visualización del historial de ventas asociando cada pedido con su arreglo interno de ítems mediante un `.map()` principal y un `.map()` anidado, realizando la suma acumulada del total del pedido en tiempo real mediante funciones reductoras de JavaScript.
+
+### 4. Investigación Propia: Control de Inventario, Repartidores y Recetas
+Se extendió la interfaz cliente para abarcar los modelos avanzados desarrollados en las fases previas del proyecto:
+* **Gestión de Stock de Ingredientes:** Despliegue del listado de insumos con alertas condicionales automáticas (`¡Reabastecer pronto!`) cuando el inventario cae por debajo del nivel mínimo o se encuentra agotado.
+* **Control de Repartidores y Composición N:M:** Monitoreo del estado operativo del personal de entrega (`Activo` / `Inactivo`) y maquetado anidado del modelo intermedio de recetas para desglosar la cantidad de insumos requeridos por pizza y calcular el costo total de producción en tiempo real.
+
+---
+
+## 🛠️ Requisitos Previos e Instalación
+
+Para ejecutar este proyecto en su entorno local, asegúrese de contar con **Node.js** (v18.0 o superior) y **npm** instalados.
+
+Siga los pasos a continuación para iniciar la aplicación:
+
+1. **Ingresar al directorio del frontend:**
+   ```bash
+   cd frontend
+   Instalar las dependencias:
+   npm install
+   Iniciar el servidor de desarrollo:
+   npm run dev
+   Verificar sintaxis y construir para producción:
+   npm run lint
+   npm run build
+
 ---
