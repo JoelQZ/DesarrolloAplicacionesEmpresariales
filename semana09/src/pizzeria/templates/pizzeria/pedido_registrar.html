@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Registrar pedido{% endblock %}
+{% block content %}
+<div class="card shadow-sm border-0">
+    <div class="card-header text-white">
+        <h4 class="mb-0"><i class="fas fa-cash-register"></i> Registrar pedido (con descuento de stock)</h4>
+    </div>
+    <div class="card-body">
+        {% if error %}
+            <div class="alert alert-danger"><i class="fas fa-triangle-exclamation"></i> {{ error }}</div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">Cliente</label>
+                <select name="cliente" class="form-select">
+                    <option value="">-- Seleccione --</option>
+                    {% for c in clientes %}
+                        <option value="{{ c.pk }}" {% if datos.cliente == c.pk|stringformat:'s' %}selected{% endif %}>{{ c.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Método de pago</label>
+                <select name="metodo_pago" class="form-select">
+                    <option value="">-- Seleccione --</option>
+                    {% for m in metodos_pago %}
+                        <option value="{{ m.pk }}" {% if datos.metodo_pago == m.pk|stringformat:'s' %}selected{% endif %}>{{ m.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Pizza</label>
+                <select name="pizza" class="form-select">
+                    <option value="">-- Seleccione --</option>
+                    {% for p in pizzas %}
+                        <option value="{{ p.pk }}" {% if datos.pizza == p.pk|stringformat:'s' %}selected{% endif %}>{{ p.nombre }} - S/ {{ p.precio_base }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Cantidad</label>
+                <input type="number" name="cantidad" min="1" value="{{ datos.cantidad|default:1 }}" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Registrar</button>
+            <a href="{% url 'order_list' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

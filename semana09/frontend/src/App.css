@@ -1,0 +1,501 @@
+.app-shell {
+  min-height: 100vh;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  overflow: hidden;
+  padding: 58px max(7vw, calc((100vw - 1160px) / 2));
+  color: #fffaf2;
+  background:
+    radial-gradient(circle at 84% 20%, rgb(255 204 102 / 18%), transparent 25%),
+    linear-gradient(120deg, #7e2419 0%, #a93420 55%, #c24b2b 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #bf5737;
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.hero .eyebrow {
+  color: #ffd89c;
+}
+
+.hero h1 {
+  margin: 0;
+  color: #fffaf2;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1.04;
+}
+
+.hero-description {
+  margin: 16px 0 0;
+  color: #f8dfce;
+  font-size: 1rem;
+}
+
+.price-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.price-summary span {
+  padding: 8px 12px;
+  border: 1px solid rgb(255 255 255 / 24%);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 9%);
+  color: #fffaf2;
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.hero-mark {
+  flex: 0 0 auto;
+  padding-right: 18px;
+  font-size: clamp(5rem, 12vw, 9rem);
+  filter: drop-shadow(0 14px 18px rgb(45 11 7 / 30%));
+  transform: rotate(-12deg);
+}
+
+.content {
+  display: grid;
+  gap: 42px;
+  width: min(1160px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 48px 0 64px;
+}
+
+.section-block {
+  min-width: 0;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.section-heading .eyebrow {
+  margin-bottom: 4px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  color: #29251f;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  letter-spacing: -0.025em;
+}
+
+.count-label {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #f4ede2;
+  color: #725d47;
+  font-size: 0.77rem;
+  font-weight: 700;
+}
+
+.pizza-grid,
+.orders-grid,
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pizza-card,
+.order-card,
+.recipe-card {
+  min-width: 0;
+  padding: 19px;
+  border: 1px solid #eee8df;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgb(54 39 21 / 4%);
+}
+
+.pizza-card {
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.pizza-card:hover {
+  box-shadow: 0 10px 24px rgb(54 39 21 / 9%);
+  transform: translateY(-2px);
+}
+
+.pizza-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.pizza-emoji {
+  font-size: 1.65rem;
+}
+
+.pizza-card h3,
+.order-card h3,
+.recipe-card h3 {
+  margin: 0;
+  color: #302920;
+  font-size: 1rem;
+  font-weight: 750;
+}
+
+.price {
+  margin: 8px 0 0;
+  color: #a93420;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.badge-available {
+  background: #e5f3e9;
+  color: #237445;
+}
+
+.badge-unavailable {
+  background: #fbe8e4;
+  color: #ad3725;
+}
+
+.badge-inactive {
+  background: #eeeef0;
+  color: #62616a;
+}
+
+.stock-note {
+  display: block;
+  margin-top: 9px;
+  color: #b34a2d;
+  font-size: 0.76rem;
+}
+
+.order-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.order-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 17px 19px;
+  background: #fbf7f0;
+}
+
+.order-number {
+  display: block;
+  margin-bottom: 4px;
+  color: #a93420;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.order-icon {
+  font-size: 1.6rem;
+}
+
+.detail-list,
+.recipe-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.detail-list {
+  padding: 7px 19px;
+}
+
+.detail-list li,
+.recipe-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f1eee9;
+  color: #635a4e;
+  font-size: 0.83rem;
+}
+
+.detail-list li:last-child,
+.recipe-list li:last-child {
+  border-bottom: 0;
+}
+
+.detail-list li span:last-child,
+.recipe-list li > span:last-child {
+  flex: 0 0 auto;
+  color: #39332b;
+  font-weight: 700;
+}
+
+.order-total,
+.recipe-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 19px;
+  border-top: 1px solid #eee8df;
+  color: #685d50;
+  font-size: 0.82rem;
+}
+
+.order-total strong,
+.recipe-total strong {
+  color: #a93420;
+  font-size: 1rem;
+}
+
+.inventory-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inventory-item,
+.courier-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid #eee8df;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.inventory-info,
+.courier-info {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.inventory-info strong,
+.courier-info strong {
+  overflow: hidden;
+  color: #302920;
+  font-size: 0.87rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inventory-info > span,
+.courier-info > span {
+  color: #82796d;
+  font-size: 0.77rem;
+}
+
+.inventory-status {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: end;
+  gap: 5px;
+}
+
+.restock-note {
+  color: #b76b19;
+  font-size: 0.67rem;
+}
+
+.courier-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.courier-card {
+  justify-content: start;
+}
+
+.avatar {
+  display: grid;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 50%;
+  background: #f5e6d3;
+  color: #9e452a;
+  font-weight: 800;
+}
+
+.courier-info {
+  flex: 1;
+}
+
+.recipe-card {
+  padding: 19px;
+  background: #fffdfa;
+}
+
+.recipe-caption {
+  margin: 8px 0 3px;
+  color: #86796a;
+  font-size: 0.76rem;
+  font-weight: 650;
+}
+
+.recipe-list li {
+  align-items: start;
+}
+
+.recipe-list li > span:first-child {
+  display: grid;
+  gap: 3px;
+}
+
+.recipe-list small {
+  color: #93887a;
+  font-size: 0.7rem;
+}
+
+.recipe-total {
+  margin: 0 -19px -19px;
+}
+
+.empty-state {
+  padding: 20px;
+  border: 1px dashed #d8cfc2;
+  border-radius: 12px;
+  color: #786d60;
+  text-align: center;
+}
+
+.page-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 19px max(7vw, calc((100vw - 1160px) / 2));
+  border-top: 1px solid #eee8df;
+  color: #887e71;
+  font-size: 0.75rem;
+}
+
+.page-footer span:first-child {
+  color: #6b3023;
+  font-weight: 800;
+}
+
+@media (max-width: 850px) {
+  .hero {
+    padding: 46px 6vw;
+  }
+
+  .hero-mark {
+    padding-right: 0;
+  }
+
+  .pizza-grid,
+  .orders-grid,
+  .recipes-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .courier-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 580px) {
+  .hero {
+    padding: 38px 24px;
+  }
+
+  .hero-mark {
+    position: absolute;
+    right: 16px;
+    bottom: 4px;
+    opacity: 0.2;
+  }
+
+  .hero-description {
+    max-width: 300px;
+  }
+
+  .price-summary {
+    position: relative;
+    z-index: 1;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .content {
+    width: min(100% - 32px, 430px);
+    gap: 34px;
+    padding: 35px 0 45px;
+  }
+
+  .section-heading {
+    align-items: start;
+  }
+
+  .count-label {
+    margin-top: 5px;
+  }
+
+  .pizza-grid,
+  .orders-grid,
+  .recipes-grid,
+  .inventory-list,
+  .courier-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-footer {
+    flex-direction: column;
+    padding: 18px 24px;
+  }
+}

@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block title %}Reporte{% endblock %}
+{% block content %}
+<h2 class="page-title"><i class="fas fa-chart-bar"></i> Reporte de ventas</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header"><i class="fas fa-coins"></i> Total vendido (aggregate)</div>
+            <div class="card-body text-center">
+                <h1 class="display-5 fw-bold">S/ {{ total.total_vendido|default:0|floatformat:2 }}</h1>
+                <p class="text-muted mb-0">{{ total.pizzas_vendidas|default:0 }} pizzas vendidas</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header"><i class="fas fa-list-check"></i> Pedidos por estado (values + annotate)</div>
+            <div class="card-body">
+                <table class="table align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Estado</th>
+                            <th class="text-end">Pedidos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for fila in por_estado %}
+                        <tr>
+                            <td>{{ fila.estado }}</td>
+                            <td class="text-end">{{ fila.total }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="2" class="text-muted text-center">Sin pedidos.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header"><i class="fas fa-calendar"></i> Pedidos del mes (QuerySet personalizado)</div>
+    <div class="card-body">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <h3 class="fw-bold mb-0">{{ del_mes.total }}</h3>
+                <p class="text-muted mb-0">Pedidos del mes</p>
+            </div>
+            <div class="col-md-4">
+                <h3 class="fw-bold mb-0">{{ del_mes.pendientes }}</h3>
+                <p class="text-muted mb-0">Pendientes del mes</p>
+            </div>
+            <div class="col-md-4">
+                <h3 class="fw-bold mb-0">{{ del_mes.entregados }}</h3>
+                <p class="text-muted mb-0">Entregados del mes</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header"><i class="fas fa-users"></i> Pedidos por cliente (annotate)</div>
+    <div class="card-body">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th class="text-end">N.º de pedidos</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in clientes %}
+                <tr>
+                    <td>{{ c.nombre }}</td>
+                    <td class="text-end">{{ c.num_pedidos }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2" class="text-muted text-center">Sin clientes.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<h3 class="page-title mt-4"><i class="fas fa-pizza-slice"></i> Pizzas e ingredientes</h3>
+
+<div class="card">
+    <div class="card-header"><i class="fas fa-weight-scale"></i> Consumo total de las recetas (aggregate)</div>
+    <div class="card-body text-center">
+        <h1 class="display-5 fw-bold">{{ recetas_total.total_gramos|default:0 }} g</h1>
+        <p class="text-muted mb-0">en {{ recetas_total.total_recetas|default:0 }} recetas registradas</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header"><i class="fas fa-list"></i> Ingredientes por pizza (annotate)</div>
+    <div class="card-body">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Pizza</th>
+                    <th class="text-end">N.º de ingredientes</th>
+                    <th class="text-end">Gramos por pizza</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in pizzas_ingredientes %}
+                <tr>
+                    <td>{{ p.nombre }}</td>
+                    <td class="text-end">{{ p.num_ingredientes }}</td>
+                    <td class="text-end">{{ p.gramos|default:0 }} g</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-muted text-center">Sin pizzas.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
